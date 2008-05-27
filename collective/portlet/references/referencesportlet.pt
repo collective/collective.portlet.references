@@ -4,21 +4,17 @@
     <dt class="portletHeader">
         <span class="portletTopLeft"></span>
         <span>
-           Header
+          State of references
         </span>
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletItem odd">
+    <dd class="portletItem lastItem"
+        tal:repeat="ref view/refs"
+        tal:content="ref/absolute_url">
         Body text
     </dd>
+<!--Add review state.-->
 
-    <dd class="portletFooter">
-        <span class="portletBottomLeft"></span>
-        <span>
-           Footer
-        </span>
-        <span class="portletBottomRight"></span>
-    </dd>
 
 </dl>

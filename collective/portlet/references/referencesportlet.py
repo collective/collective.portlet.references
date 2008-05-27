@@ -70,14 +70,20 @@ class Renderer(base.Renderer):
     render = ViewPageTemplateFile('referencesportlet.pt')
 
     @property
-    def available(self):
+    def refs(self):
         context = aq_inner(self.context)
         try:
             refs = context.getRefs()
         except AttributeError:
             # For example a Plone Site has no references field.
-            return False
-        return len(refs) > 0
+            refs = []
+        return refs
+
+    @property
+    def available(self):
+        # XXX not for anonymous
+        return len(self.refs) > 0
+
 
 
 class AddForm(base.AddForm):
