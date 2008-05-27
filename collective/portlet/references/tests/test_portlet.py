@@ -94,14 +94,48 @@ class TestRenderer(TestCase):
         return getMultiAdapter((context, request, view, manager, assignment),
                                IPortletRenderer)
 
-    def test_render(self):
+    def test_render_related_items(self):
         # TODO: Pass any keyword arguments to the Assignment constructor
-        r = self.renderer(context=self.portal,
+        r = self.renderer(context=self.folder,
                           assignment=referencesportlet.Assignment())
         r = r.__of__(self.folder)
         r.update()
         output = r.render()
-        # TODO: Test output
+
+        # By default this folder has no references, so this portlet is
+        # not displayed.
+        self.failIf(r.available,
+                    "No references, so the portlet should not be available.")
+
+        # So we add a related item to this folder.  Note that this
+        # field is normally not visible in the edit for.
+        front = self.portal['front-page']
+        self.folder.setRelatedItems([front])
+        r.update()
+        self.failUnless(
+            r.available,
+            "We have a related item, so the portlet should be available.")
+
+    def test_render_references(self):
+        # TODO: Pass any keyword arguments to the Assignment constructor
+        front = self.portal['front-page']
+        front_path = '/'.join(self.folder.getPhysicalPath())
+        text_template = u'<a class="link-internal" href="%s">A link.</a>'
+        self.folder.invokeFactory('Document', 'page',
+                                  text=text_template % front_path)
+        page = self.folder.page
+
+        r = self.renderer(context=page,
+                          assignment=referencesportlet.Assignment())
+        r = r.__of__(page)
+        r.update()
+        output = r.render()
+
+        # XXX This is known to fail; please fix.
+        self.assertEqual(len(page.getRefs()), 1)
+        self.failUnless(
+            r.available,
+            "We have a reference, so the portlet should be available.")
 
 
 def test_suite():

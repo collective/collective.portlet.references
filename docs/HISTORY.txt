@@ -4,5 +4,7 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+* Only display when there are references.  [maurits]
+
 * Initial release
 

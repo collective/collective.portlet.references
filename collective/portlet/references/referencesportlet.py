@@ -7,6 +7,7 @@ from plone.app.portlets.portlets import base
 
 from zope import schema
 from zope.formlib import form
+from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 from collective.portlet.references import ReferencesPortletMessageFactory as _
@@ -67,6 +68,16 @@ class Renderer(base.Renderer):
     """
 
     render = ViewPageTemplateFile('referencesportlet.pt')
+
+    @property
+    def available(self):
+        context = aq_inner(self.context)
+        try:
+            refs = context.getRefs()
+        except AttributeError:
+            # For example a Plone Site has no references field.
+            return False
+        return len(refs) > 0
 
 
 class AddForm(base.AddForm):
