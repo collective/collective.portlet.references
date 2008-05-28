@@ -16,6 +16,8 @@
         <br />
         state:
         <span tal:attributes="class string:state-${ref/state_id}"
+              i18n:domain="plone"
+              i18n:translate=""
               tal:content="ref/state_title" />
         <br />
         anonymous can view: <tal:visible replace="ref/visible_for_anonymous" />
