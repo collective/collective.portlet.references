@@ -81,6 +81,10 @@ class Renderer(base.Renderer):
             return
         if len(refs) == 0:
             return {}
+        try:
+            related = context.getRelatedItems()
+        except AttributeError:
+            related = []
         wf_tool = getToolByName(context, 'portal_workflow')
         for ref in refs:
             visible_for_anonymous = False
@@ -99,10 +103,16 @@ class Renderer(base.Renderer):
                 state_title = review_state_title,
                 )
             # TODO: related items
-            if visible_for_anonymous:
-                self.visible_text_links.append(info)
+            if ref in related:
+                if visible_for_anonymous:
+                    self.visible_related_items.append(info)
+                else:
+                    self.invisible_related_items.append(info)
             else:
-                self.invisible_text_links.append(info)
+                if visible_for_anonymous:
+                    self.visible_text_links.append(info)
+                else:
+                    self.invisible_text_links.append(info)
 
     @property
     def reference_sections(self):

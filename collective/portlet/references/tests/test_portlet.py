@@ -105,6 +105,10 @@ class TestRenderer(TestCase):
         self.failUnless(
             r.available,
             "We have a related item, so the portlet should be available.")
+        self.assertEqual(len(r.visible_text_links), 0)
+        self.assertEqual(len(r.invisible_text_links), 0)
+        self.assertEqual(len(r.visible_related_items), 1)
+        self.assertEqual(len(r.invisible_related_items), 0)
 
     def test_render_references(self):
         # TODO: Pass any keyword arguments to the Assignment constructor
