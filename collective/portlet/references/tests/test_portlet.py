@@ -44,22 +44,11 @@ class TestPortlet(TestCase):
 
         # TODO: Pass a dictionary containing dummy form inputs from the add
         # form.
-        # Note: if the portlet has a NullAddForm, simply call
-        # addview() instead of the next line.
-        addview.createAndAdd(data={})
+        addview()
 
         self.assertEquals(len(mapping), 1)
         self.failUnless(isinstance(mapping.values()[0],
                                    referencesportlet.Assignment))
-
-    def test_invoke_edit_view(self):
-        # NOTE: This test can be removed if the portlet has no edit form
-        mapping = PortletAssignmentMapping()
-        request = self.folder.REQUEST
-
-        mapping['foo'] = referencesportlet.Assignment()
-        editview = getMultiAdapter((mapping['foo'], request), name='edit')
-        self.failUnless(isinstance(editview, referencesportlet.EditForm))
 
     def test_obtain_renderer(self):
         context = self.folder
@@ -143,7 +132,8 @@ class TestRenderer(TestCase):
 
         # The front page is visible for anonymous.
         wf_tool = getToolByName(self.portal, 'portal_workflow')
-        self.assertEqual(wf_tool.getInfoFor(front, 'review_state'), 'published')
+        self.assertEqual(wf_tool.getInfoFor(front, 'review_state'),
+                         'published')
         # The folder is not visible.
         self.assertEqual(wf_tool.getInfoFor(self.folder, 'review_state'),
                          'private')

@@ -3,8 +3,6 @@ from zope.interface import implements
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 
-from zope import schema
-from zope.formlib import form
 from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -139,30 +137,13 @@ class Renderer(base.Renderer):
         return len(refs) > 0
 
 
-class AddForm(base.AddForm):
+class AddForm(base.NullAddForm):
     """Portlet add form.
 
     This is registered in configure.zcml. The form_fields variable tells
     zope.formlib which fields to display. The create() method actually
     constructs the assignment that is being added.
-
-    NOTE: If this portlet does not have any configurable parameters, you can
-    inherit from NullAddForm and remove the form_fields variable.
     """
-    form_fields = form.Fields(IReferencesPortlet)
 
-    def create(self, data):
-        return Assignment(**data)
-
-
-class EditForm(base.EditForm):
-    """Portlet edit form.
-
-    This is registered with configure.zcml. The form_fields variable tells
-    zope.formlib which fields to display.
-
-    NOTE: IF this portlet does not have any configurable parameters, you can
-    remove this class definition and delete the editview attribute from the
-    <plone:portlet /> registration in configure.zcml
-    """
-    form_fields = form.Fields(IReferencesPortlet)
+    def create(self):
+        return Assignment()

@@ -17,11 +17,6 @@
 
      <!-- Register the portlet -->
 
-     <!-- If the portlet has no configurable parameters, you can remove
-          the EditForm declaration in referencesportlet.py and delete
-          the 'editview' attribute from this statement.
-       -->
-
      <plone:portlet
          name="collective.portlet.references.ReferencesPortlet"
          interface=".referencesportlet.IReferencesPortlet"
@@ -30,7 +25,6 @@
          edit_permission="cmf.ManagePortal"
          renderer=".referencesportlet.Renderer"
          addview=".referencesportlet.AddForm"
-         editview=".referencesportlet.EditForm"
          />
 
 </configure>
