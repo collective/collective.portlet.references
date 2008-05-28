@@ -9,12 +9,12 @@
         <span class="portletTopRight"></span>
     </dt>
 
-    <dd class="portletItem lastItem"
-        tal:repeat="ref view/refs"
-        tal:content="ref/absolute_url">
-        Body text
+    <dd class="portletItem lastItem">
+      <tal:item repeat="ref view/refs">
+        <a tal:attributes="href ref/absolute_url"
+           tal:content="ref/title_or_id" />
+        <!-- tal:state replace="ref/review_state" /-->
+      </tal:item>
     </dd>
-<!--Add review state.-->
-
 
 </dl>
