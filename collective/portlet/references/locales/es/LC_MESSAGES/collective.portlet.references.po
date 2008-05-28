@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.portlet.references\n"
-"POT-Creation-Date: 2008-05-28 13:27+0000\n"
+"POT-Creation-Date: 2008-05-28 13:47+0000\n"
 "PO-Revision-Date: 2008-05-28 15:26+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Zest Software <info@zestsoftware.nl>\n"
@@ -15,19 +15,23 @@ msgstr ""
 "Domain: collective.portlet.references\n"
 "X-Is-Fallback-For: es-ar es-bo es-cl es-co es-cr es-do es-ec es-es es-sv es-gt es-hn es-mx es-ni es-pa es-py es-pe es-pr es-us es-uy es-ve\n"
 
+#: collective.portlet.references/collective/portlet/references/referencesportlet.py:111
+msgid "Invisible links in the text"
+msgstr ""
+
 #: collective.portlet.references/collective/portlet/references/referencesportlet.py:119
 msgid "Invisible related items"
 msgstr ""
 
-#: collective.portlet.references/collective/portlet/references/referencesportlet.py:111
-msgid "Invisible text links"
+#: collective.portlet.references/collective/portlet/references/referencesportlet.py:55
+msgid "References"
+msgstr ""
+
+#: collective.portlet.references/collective/portlet/references/referencesportlet.py:115
+msgid "Visible links in the text"
 msgstr ""
 
 #: collective.portlet.references/collective/portlet/references/referencesportlet.py:123
 msgid "Visible related items"
-msgstr ""
-
-#: collective.portlet.references/collective/portlet/references/referencesportlet.py:115
-msgid "Visible text links"
 msgstr ""
 

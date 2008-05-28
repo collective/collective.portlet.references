@@ -52,7 +52,7 @@ class Assignment(base.Assignment):
         """This property is used to give the title of the portlet in the
         "manage portlets" screen.
         """
-        return "References portlet"
+        return _("References")
 
 
 class Renderer(base.Renderer):
@@ -108,11 +108,11 @@ class Renderer(base.Renderer):
     def reference_sections(self):
         infos = []
         infos.append(dict(
-                title = _(u'Invisible text links'),
+                title = _(u'Invisible links in the text'),
                 refs = self.invisible_text_links,
                 ))
         infos.append(dict(
-                title = _(u'Visible text links'),
+                title = _(u'Visible links in the text'),
                 refs = self.visible_text_links,
                 ))
         infos.append(dict(
