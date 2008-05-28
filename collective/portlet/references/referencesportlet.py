@@ -67,18 +67,23 @@ class Renderer(base.Renderer):
 
     render = ViewPageTemplateFile('referencesportlet.pt')
 
-    @property
-    def refs(self):
+    def __init__(self, context, request, view, manager, data):
+        super(Renderer, self).__init__(context, request, view, manager, data)
+        self.visible_text_links = []
+        self.invisible_text_links = []
+        self.visible_related_items = []
+        self.invisible_related_items = []
+
+    def update(self):
         context = aq_inner(self.context)
         try:
             refs = context.getRefs()
         except AttributeError:
             # For example a Plone Site has no references field.
-            refs = []
+            return
         if len(refs) == 0:
-            return refs
+            return {}
         wf_tool = getToolByName(context, 'portal_workflow')
-        infos = []
         for ref in refs:
             visible_for_anonymous = False
             for perm in ref.permissionsOfRole('Anonymous'):
@@ -94,15 +99,44 @@ class Renderer(base.Renderer):
                 url = ref.absolute_url(),
                 state_id = review_state_id,
                 state_title = review_state_title,
-                visible_for_anonymous = visible_for_anonymous,
                 )
-            infos.append(info)
+            # TODO: related items
+            if visible_for_anonymous:
+                self.visible_text_links.append(info)
+            else:
+                self.invisible_text_links.append(info)
+
+    @property
+    def reference_sections(self):
+        infos = []
+        infos.append(dict(
+                title = _(u'Invisible text links'),
+                refs = self.invisible_text_links,
+                ))
+        infos.append(dict(
+                title = _(u'Visible text links'),
+                refs = self.visible_text_links,
+                ))
+        infos.append(dict(
+                title = _(u'Invisible related items'),
+                refs = self.invisible_related_items,
+                ))
+        infos.append(dict(
+                title = _(u'Visible related items'),
+                refs = self.visible_related_items,
+                ))
         return infos
 
     @property
     def available(self):
-        # XXX not for anonymous
-        return len(self.refs) > 0
+        # XXX not for anonymous.  Well, probably only for Reviewers.
+        context = aq_inner(self.context)
+        try:
+            refs = context.getRefs()
+        except AttributeError:
+            # For example a Plone Site has no references field.
+            refs = []
+        return len(refs) > 0
 
 
 class AddForm(base.AddForm):

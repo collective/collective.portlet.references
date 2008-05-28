@@ -11,6 +11,7 @@ from plone.app.portlets.storage import PortletAssignmentMapping
 from collective.portlet.references import referencesportlet
 
 from collective.portlet.references.tests.base import TestCase
+from Products.CMFCore.utils import getToolByName
 
 
 class TestPortlet(TestCase):
@@ -119,13 +120,15 @@ class TestRenderer(TestCase):
     def test_render_references(self):
         # TODO: Pass any keyword arguments to the Assignment constructor
         front = self.portal['front-page']
-        front_path = '/'.join(self.folder.getPhysicalPath())
-        text_template = u'<a class="link-internal" href="%s">A link.</a>'
+        front_path = '/'.join(front.getPhysicalPath())
+        folder_path = '/'.join(self.folder.getPhysicalPath())
+        text_template = u'<a href="%s">A link.</a>'
         self.folder.invokeFactory('Document', 'page')
         page = self.folder.page
 
         # Note: during processForm the references get added.
-        page.processForm(values={'text': text_template % front_path})
+        page.processForm(values={'text': text_template % front_path +
+                                 text_template % folder_path})
 
         r = self.renderer(context=page,
                           assignment=referencesportlet.Assignment())
@@ -133,10 +136,21 @@ class TestRenderer(TestCase):
         r.update()
         output = r.render()
 
-        self.assertEqual(len(page.getRefs()), 1)
+        self.assertEqual(len(page.getRefs()), 2)
         self.failUnless(
             r.available,
             "We have a reference, so the portlet should be available.")
+
+        # The front page is visible for anonymous.
+        wf_tool = getToolByName(self.portal, 'portal_workflow')
+        self.assertEqual(wf_tool.getInfoFor(front, 'review_state'), 'published')
+        # The folder is not visible.
+        self.assertEqual(wf_tool.getInfoFor(self.folder, 'review_state'),
+                         'private')
+        self.assertEqual(len(r.visible_text_links), 1)
+        self.assertEqual(len(r.invisible_text_links), 1)
+        self.assertEqual(len(r.visible_related_items), 0)
+        self.assertEqual(len(r.invisible_related_items), 0)
 
 
 def test_suite():
