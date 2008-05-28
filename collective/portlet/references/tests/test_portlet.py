@@ -121,9 +121,11 @@ class TestRenderer(TestCase):
         front = self.portal['front-page']
         front_path = '/'.join(self.folder.getPhysicalPath())
         text_template = u'<a class="link-internal" href="%s">A link.</a>'
-        self.folder.invokeFactory('Document', 'page',
-                                  text=text_template % front_path)
+        self.folder.invokeFactory('Document', 'page')
         page = self.folder.page
+
+        # Note: during processForm the references get added.
+        page.processForm(values={'text': text_template % front_path})
 
         r = self.renderer(context=page,
                           assignment=referencesportlet.Assignment())
@@ -131,7 +133,6 @@ class TestRenderer(TestCase):
         r.update()
         output = r.render()
 
-        # XXX This is known to fail; please fix.
         self.assertEqual(len(page.getRefs()), 1)
         self.failUnless(
             r.available,
