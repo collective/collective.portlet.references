@@ -1,3 +1,1 @@
-- Filter out LinguaPlone references.
-
 - object.getRefs() does not return Files.
