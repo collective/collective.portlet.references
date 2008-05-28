@@ -11,9 +11,14 @@
 
     <dd class="portletItem lastItem">
       <tal:item repeat="ref view/refs">
-        <a tal:attributes="href ref/absolute_url"
-           tal:content="ref/title_or_id" />
-        <!-- tal:state replace="ref/review_state" /-->
+        <a tal:attributes="href ref/url"
+           tal:content="ref/title" />
+        <br />
+        state: <tal:state replace="ref/state" />
+        <br />
+        anonymous can view: <tal:visible replace="ref/visible_for_anonymous" />
+        <br />
+        <br />
       </tal:item>
     </dd>
 

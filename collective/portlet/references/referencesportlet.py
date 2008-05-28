@@ -1,5 +1,3 @@
-from zope.interface import Interface
-
 from zope.interface import implements
 
 from plone.portlets.interfaces import IPortletDataProvider
@@ -9,7 +7,7 @@ from zope import schema
 from zope.formlib import form
 from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from Products.CMFCore.utils import getToolByName
 from collective.portlet.references import ReferencesPortletMessageFactory as _
 
 
@@ -77,13 +75,28 @@ class Renderer(base.Renderer):
         except AttributeError:
             # For example a Plone Site has no references field.
             refs = []
-        return refs
+        if len(refs) == 0:
+            return refs
+        wf_tool = getToolByName(context, 'portal_workflow')
+        infos = []
+        for ref in refs:
+            for perm in ref.permissionsOfRole('Anonymous'):
+                if perm['name'] == 'View':
+                    visible_for_anonymous = (perm['selected'] == 'SELECTED')
+                    break
+            info = dict(
+                title = ref.title_or_id(),
+                url = ref.absolute_url(),
+                state = wf_tool.getInfoFor(ref, 'review_state'),
+                visible_for_anonymous = visible_for_anonymous,
+                )
+            infos.append(info)
+        return infos
 
     @property
     def available(self):
         # XXX not for anonymous
         return len(self.refs) > 0
-
 
 
 class AddForm(base.AddForm):
