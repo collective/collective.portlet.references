@@ -4,6 +4,13 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+* Removed the edit/add forms.  [maurits]
+
+* Split the references into (in)visible links in the text and related
+  items.  [maurits]
+
+* Show review state title and use state coloring.  [maurits]
+
 * Only display when there are references.  [maurits]
 
 * Initial release
