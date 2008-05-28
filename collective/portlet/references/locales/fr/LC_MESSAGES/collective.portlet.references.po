@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.portlet.references\n"
-"POT-Creation-Date: 2008-05-28 13:47+0000\n"
-"PO-Revision-Date: 2008-05-28 15:48+0200\n"
+"POT-Creation-Date: 2008-05-28 14:01+0000\n"
+"PO-Revision-Date: 2008-05-28 16:01+0200\n"
 "Last-Translator: Maurits van Rees <m.van.rees@zestsoftware.nl>\n"
 "Language-Team: Zest Software <info@zestsoftware.nl>\n"
 "MIME-Version: 1.0\n"
@@ -34,4 +34,9 @@ msgstr "Liens visible dans la texte"
 #: collective.portlet.references/collective/portlet/references/referencesportlet.py:123
 msgid "Visible related items"
 msgstr "Contenus correlés visibles"
+
+#. Default: "State of references"
+#: collective.portlet.references/collective/portlet/references/referencesportlet.pt:6
+msgid "title_state_of_references"
+msgstr "État des références"
 

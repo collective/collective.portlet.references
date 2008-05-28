@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2008-05-28 13:47+0000\n"
+"POT-Creation-Date: 2008-05-28 14:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,5 +35,10 @@ msgstr ""
 
 #: collective.portlet.references/collective/portlet/references/referencesportlet.py:123
 msgid "Visible related items"
+msgstr ""
+
+#. Default: "State of references"
+#: collective.portlet.references/collective/portlet/references/referencesportlet.pt:6
+msgid "title_state_of_references"
 msgstr ""
 

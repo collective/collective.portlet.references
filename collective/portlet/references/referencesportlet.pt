@@ -3,7 +3,7 @@
 
   <dt class="portletHeader">
     <span class="portletTopLeft"></span>
-    <span>
+    <span i18n:translate="title_state_of_references">
       State of references
     </span>
     <span class="portletTopRight"></span>
