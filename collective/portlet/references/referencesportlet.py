@@ -80,6 +80,7 @@ class Renderer(base.Renderer):
         wf_tool = getToolByName(context, 'portal_workflow')
         infos = []
         for ref in refs:
+            visible_for_anonymous = False
             for perm in ref.permissionsOfRole('Anonymous'):
                 if perm['name'] == 'View':
                     visible_for_anonymous = (perm['selected'] == 'SELECTED')
