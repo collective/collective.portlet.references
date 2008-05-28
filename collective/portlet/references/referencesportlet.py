@@ -85,10 +85,15 @@ class Renderer(base.Renderer):
                 if perm['name'] == 'View':
                     visible_for_anonymous = (perm['selected'] == 'SELECTED')
                     break
+
+            review_state_id = wf_tool.getInfoFor(ref, 'review_state')
+            review_state_title = wf_tool.getTitleForStateOnType(
+                review_state_id, ref.portal_type)
             info = dict(
                 title = ref.title_or_id(),
                 url = ref.absolute_url(),
-                state = wf_tool.getInfoFor(ref, 'review_state'),
+                state_id = review_state_id,
+                state_title = review_state_title,
                 visible_for_anonymous = visible_for_anonymous,
                 )
             infos.append(info)
