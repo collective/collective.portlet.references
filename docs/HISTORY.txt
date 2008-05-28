@@ -4,6 +4,10 @@ Changelog
 1.0 - Unreleased
 ----------------
 
+* Only report relations 'isReferencing' (from plone.app.linkintegrity)
+  and 'relatesTo' (relatedItems) and not for example 'translationOf'
+  from LinguaPlone.  [maurits]
+
 * Added French and Spanish locales.  [maurits]
 
 * Removed the edit/add forms.  [maurits]

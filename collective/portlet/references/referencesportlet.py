@@ -74,11 +74,7 @@ class Renderer(base.Renderer):
 
     def update(self):
         context = aq_inner(self.context)
-        try:
-            refs = context.getRefs()
-        except AttributeError:
-            # For example a Plone Site has no references field.
-            return
+        refs = self.refs
         if len(refs) == 0:
             return {}
         try:
@@ -136,15 +132,31 @@ class Renderer(base.Renderer):
         return infos
 
     @property
-    def available(self):
-        # XXX not for anonymous.  Well, probably only for Reviewers.
+    def refs(self):
         context = aq_inner(self.context)
         try:
-            refs = context.getRefs()
+            # Check if this method exists.
+            context.getRefs
         except AttributeError:
             # For example a Plone Site has no references field.
-            refs = []
-        return len(refs) > 0
+            return []
+
+        # We are not interested in e.g. the 'translationOf' relation from
+        # LinguaPlone.
+
+        # Get the references from plone.app.linkintegrity for
+        # references inside the text.
+        refs = context.getRefs('isReferencing')
+        # Add the related items.
+        for ref in context.getRefs('relatesTo'):
+            if ref not in refs:
+                refs.append(ref)
+        return refs
+        
+    @property
+    def available(self):
+        # XXX not for anonymous.  Well, probably only for Reviewers.
+        return len(self.refs) > 0
 
 
 class AddForm(base.NullAddForm):
