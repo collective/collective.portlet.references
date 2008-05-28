@@ -12,9 +12,9 @@
 
     <genericsetup:registerProfile
        name="default"
-       title="References portlet"
+       title="References"
        directory="profiles/default"
-       description="Display references of a page"
+       description="Display references of a page in a portlet"
        provides="Products.GenericSetup.interfaces.EXTENSION"
        />
 
