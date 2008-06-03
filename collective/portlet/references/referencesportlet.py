@@ -7,6 +7,7 @@ from Acquisition import aq_inner
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from collective.portlet.references import ReferencesPortletMessageFactory as _
+from Products.CMFCore.WorkflowCore import WorkflowException
 
 
 class IReferencesPortlet(IPortletDataProvider):
@@ -89,7 +90,13 @@ class Renderer(base.Renderer):
                     visible_for_anonymous = (perm['selected'] == 'SELECTED')
                     break
 
-            review_state_id = wf_tool.getInfoFor(ref, 'review_state')
+            try:
+                review_state_id = wf_tool.getInfoFor(ref, 'review_state')
+            except WorkflowException:
+                review_state_id = ''
+                # TODO: perhaps the next line needs to be smarter,
+                # like check higher levels.
+                visible_for_anonymous = True
             review_state_title = wf_tool.getTitleForStateOnType(
                 review_state_id, ref.portal_type)
             info = dict(
@@ -98,7 +105,6 @@ class Renderer(base.Renderer):
                 state_id = review_state_id,
                 state_title = review_state_title,
                 )
-            # TODO: related items
             if ref in related:
                 if visible_for_anonymous:
                     self.visible_related_items.append(info)
