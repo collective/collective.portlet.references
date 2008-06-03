@@ -84,6 +84,29 @@ class TestRenderer(TestCase):
         return getMultiAdapter((context, request, view, manager, assignment),
                                IPortletRenderer)
 
+    def test_not_available_for_anonymous(self):
+        front = self.portal['front-page']
+        front.setRelatedItems([self.folder])
+        self.logout()
+        self.assertEqual(len(front.getRefs()), 1)
+        r = self.renderer(context=front,
+                          assignment=referencesportlet.Assignment())
+        r = r.__of__(front)
+        r.update()
+        self.failIf(r.available,
+                    "Anonymous, so the portlet should not be available.")
+
+    def test_available_for_not_anonymous(self):
+        front = self.portal['front-page']
+        front.setRelatedItems([self.folder])
+        r = self.renderer(context=front,
+                          assignment=referencesportlet.Assignment())
+        self.assertEqual(len(front.getRefs()), 1)
+        r = r.__of__(front)
+        r.update()
+        self.failUnless(r.available,
+                        "Not anonymous, so the portlet should be available.")
+
     def test_render_related_items(self):
         # TODO: Pass any keyword arguments to the Assignment constructor
         r = self.renderer(context=self.folder,
@@ -98,7 +121,7 @@ class TestRenderer(TestCase):
                     "No references, so the portlet should not be available.")
 
         # So we add a related item to this folder.  Note that this
-        # field is normally not visible in the edit for.
+        # field is normally not visible in the edit form.
         front = self.portal['front-page']
         self.folder.setRelatedItems([front])
         r.update()

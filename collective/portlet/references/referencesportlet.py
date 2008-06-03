@@ -156,6 +156,10 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         # XXX not for anonymous.  Well, probably only for Reviewers.
+        context = aq_inner(self.context)
+        pps = context.restrictedTraverse('@@plone_portal_state')
+        if pps.anonymous():
+            return False
         return len(self.refs) > 0
 
 
