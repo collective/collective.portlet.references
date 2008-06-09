@@ -1,7 +1,10 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0dev'
+versionfile = open(os.path.join('collective', 'portlet', 'references',
+                                'version.txt'))
+version = versionfile.read().strip()
+versionfile.close()
 
 setup(name='collective.portlet.references',
       version=version,
