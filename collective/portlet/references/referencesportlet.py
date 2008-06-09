@@ -1,4 +1,5 @@
 from zope.interface import implements
+from zope.component import getMultiAdapter, queryMultiAdapter
 
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -84,6 +85,8 @@ class Renderer(base.Renderer):
             related = []
         wf_tool = getToolByName(context, 'portal_workflow')
         for ref in refs:
+            pcs = getMultiAdapter((ref, self.request),
+                                  name='plone_context_state')
             visible_for_anonymous = False
             for perm in ref.permissionsOfRole('Anonymous'):
                 if perm['name'] == 'View':
@@ -100,8 +103,8 @@ class Renderer(base.Renderer):
             review_state_title = wf_tool.getTitleForStateOnType(
                 review_state_id, ref.portal_type)
             info = dict(
-                title = ref.title_or_id(),
-                url = ref.absolute_url(),
+                title = pcs.object_title(),
+                url = pcs.view_url(),
                 state_id = review_state_id,
                 state_title = review_state_title,
                 )
