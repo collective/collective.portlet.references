@@ -4,6 +4,9 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+- Register as z3c.autoinclude.plugin for plone.
+  [maurits]
+
 - Moved to github:
   https://github.com/collective/collective.portlet.references
   [maurits]
