@@ -6,8 +6,6 @@ from plone.portlets.interfaces import IPortletAssignment
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.portlets.interfaces import IPortletRenderer
 
-from plone.app.portlets.storage import PortletAssignmentMapping
-
 from collective.portlet.references import referencesportlet
 
 from collective.portlet.references.tests.base import TestCase

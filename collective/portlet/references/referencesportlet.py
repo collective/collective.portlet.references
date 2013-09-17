@@ -1,5 +1,5 @@
 from zope.interface import implements
-from zope.component import getMultiAdapter, queryMultiAdapter
+from zope.component import getMultiAdapter
 
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -161,7 +161,7 @@ class Renderer(base.Renderer):
             if ref not in refs:
                 refs.append(ref)
         return refs
-        
+
     @property
     def available(self):
         # XXX not for anonymous.  Well, probably only for Reviewers.
