@@ -4,7 +4,7 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-* Moved to github:
+- Moved to github:
   https://github.com/collective/collective.portlet.references
   [maurits]
 
@@ -12,29 +12,29 @@ Changelog
 1.0 - (9 June 2008)
 -------------------
 
-* Use /view for e.g. images/files (using view_url from
+- Use /view for e.g. images/files (using view_url from
   plone_context_state).
   [maurits]
 
-* Place references without a workflow in the list of visible items.
+- Place references without a workflow in the list of visible items.
   [maurits]
 
-* Do not show portlet for anonymous.  [maurits]
+- Do not show portlet for anonymous.  [maurits]
 
-* Only report relations 'isReferencing' (from plone.app.linkintegrity)
+- Only report relations 'isReferencing' (from plone.app.linkintegrity)
   and 'relatesTo' (relatedItems) and not for example 'translationOf'
   from LinguaPlone.  [maurits]
 
-* Added French and Spanish locales.  [maurits]
+- Added French and Spanish locales.  [maurits]
 
-* Removed the edit/add forms.  [maurits]
+- Removed the edit/add forms.  [maurits]
 
-* Split the references into (in)visible links in the text and related
+- Split the references into (in)visible links in the text and related
   items.  [maurits]
 
-* Show review state title and use state coloring.  [maurits]
+- Show review state title and use state coloring.  [maurits]
 
-* Only display when there are references.  [maurits]
+- Only display when there are references.  [maurits]
 
-* Initial release
+- Initial release
 
