@@ -4,6 +4,10 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
+* Moved to github:
+  https://github.com/collective/collective.portlet.references
+  [maurits]
+
 
 1.0 - (9 June 2008)
 -------------------
